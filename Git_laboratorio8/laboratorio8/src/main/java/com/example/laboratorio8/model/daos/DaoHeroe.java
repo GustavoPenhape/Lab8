@@ -91,6 +91,7 @@ public class DaoHeroe {
             pstmt.setString(3,heroes.getGenero());
             pstmt.setString(4,heroes.getClase());
             pstmt.setString(5,Integer.toString(heroes.getPuntos_experiencia()));
+            pstmt.setString(6,Integer.toString(heroes.getAtaque()));
             pstmt.setString(7,Integer.toString(heroes.getNivel_inicial()));
             pstmt.setString(8,Integer.toString(heroes.getPareja_id()));
             pstmt.executeUpdate();
@@ -125,6 +126,28 @@ public class DaoHeroe {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    public void borrar(String idHeroe){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        String url = "jdbc:mysql://localhost:3306/mydb";
+        String sql = "DELETE from mydb.heroes WHERE idHeroes = ?";
+
+        try(Connection connection = DriverManager.getConnection(url,"root","123456");
+            PreparedStatement pstmt=connection.prepareStatement(sql))
+        {
+
+            pstmt.setString(1,idHeroe);
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 }

@@ -42,7 +42,7 @@
                      name="clase" value="<%=heroe_send_jsp.getClase()%>">
             </div>
             <div class="mb-3">
-              <label for="ataque" class="form-label">Genero</label>
+              <label for="ataque" class="form-label">Ataque</label>
               <input type="text" class="form-control" id="ataque" placeholder="Ataque"
                      name="ataque" value="<%=heroe_send_jsp.getAtaque()%>">
             </div>
@@ -53,7 +53,8 @@
             </div>
             <div class="mb-3">
               <label for="puntos_exp" class="form-label">Points</label>
-              <input type="text" class="form-control" id="puntos_exp" placeholder="puntitos" name="puntos_exp">
+              <input type="text" class="form-control" id="puntos_exp" placeholder="puntitos" name="puntos_exp"
+                    value="<%=heroe_send_jsp.getPareja_id()%>">
             </div>
             <button type="submit" class="btn btn-primary">Actualizar</button>
             <a href="<%=request.getContextPath()%>/HeroeServlet" class="btn btn-danger">Regresar</a>

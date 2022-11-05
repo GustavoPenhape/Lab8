@@ -7,6 +7,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet(name = "HeroeServlet", urlPatterns = {"/HeroeServlet", ""})
 public class HeroeServlet extends HttpServlet {
@@ -43,6 +44,18 @@ public class HeroeServlet extends HttpServlet {
                 if (heroe != null) { //abro el form para editar
                     request.setAttribute("heroe_send_jsp", heroe);
                     requestDispatcher = request.getRequestDispatcher("heroe/formEditar.jsp");
+                    requestDispatcher.forward(request, response);
+                } else { //id no encontrado
+                    response.sendRedirect(request.getContextPath() + "/HeroeServlet");
+                }
+                break;
+            case "editarParcial":
+                heroeId = request.getParameter("id");
+                heroe = daoHeroe.buscarPorId(heroeId);
+
+                if (heroe != null) { //abro el form para editar
+                    request.setAttribute("heroeParcial", heroe);
+                    requestDispatcher = request.getRequestDispatcher("heroe/formEditarParcial.jsp");
                     requestDispatcher.forward(request, response);
                 } else { //id no encontrado
                     response.sendRedirect(request.getContextPath() + "/HeroeServlet");
@@ -108,6 +121,31 @@ public class HeroeServlet extends HttpServlet {
                 daoHeroes.actualizarHeroes(IdHeroes,nombre1,edad1,genero1,nivel1,clase1,ataque1,pareja1,puntos_exp1);
                 response.sendRedirect(request.getContextPath() + "/HeroeServlet");
                 break;
+
+            case "actualizarParcial":
+                String idheroes2 = request.getParameter("id");
+                String nombre2 = request.getParameter("nombre");
+                String edad2 = request.getParameter("edad");
+                String genero2 = request.getParameter("genero");
+                String clase2 = request.getParameter("clase");
+                //int minSalary2 = Integer.parseInt(minSalaryStr2);
+                try {
+                    daoHeroes.actualizarParcial(idheroes2,nombre2,edad2,genero2,clase2);
+                    response.sendRedirect(request.getContextPath() + "/HeroeServlet");
+                } catch (SQLException e) {
+                    Heroe heroe1 = daoHeroes.buscarPorId(idheroes2);
+
+                    if (heroe1!= null) { //abro el form para editar
+                        request.setAttribute("heroeParcial", heroe1);
+                        request.setAttribute("error","El texto no puede tener mas de 255 caractéres");
+                        RequestDispatcher requestDispatcher = request.getRequestDispatcher("heroe/formEditarParcial.jsp");
+                        requestDispatcher.forward(request, response);
+                    } else { //id no encontrado
+                        response.sendRedirect(request.getContextPath() + "/HeroeServlet");
+                    }
+                }
+
+
         }
     }
 }

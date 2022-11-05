@@ -149,5 +149,31 @@ public class DaoHeroe {
         }
 
     }
+    public void actualizarParcial(String IdHeroes, String nombre2, String edad2, String genero2, String clase2) throws SQLException {
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        String url = "jdbc:mysql://localhost:3306/mydb";
+        String sql = "UPDATE mydb.heroe SET  nombre = ?, edad = ?, genero = ?, clase = ?  WHERE idheroes = ?";
+
+        try (Connection connection = DriverManager.getConnection(url, "root", "123456");
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(5, IdHeroes);
+            pstmt.setString(1, nombre2);
+            pstmt.setString(2, edad2);
+            pstmt.setString(3, genero2);
+            pstmt.setString(4, clase2);
+            pstmt.executeUpdate();
+        //    pstmt.setString(1, jobTitle);
+        //    pstmt.setInt(2, minSalary);
+            //    pstmt.setString(3, jobId);
+        //    pstmt.executeUpdate();
+        }
+    }
+
 
 }

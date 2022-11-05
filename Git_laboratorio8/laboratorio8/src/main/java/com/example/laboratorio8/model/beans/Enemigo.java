@@ -73,4 +73,5 @@ public class Enemigo {
     public void setClase(String clase) {
         this.clase = clase;
     }
+
 }

@@ -108,7 +108,7 @@ public class DaoHeroe {
         String url = "jdbc:mysql://localhost:3306/hr";
         String sql = "UPDATE mydb.heroes SET nombre = ?, edad = ?, genero = ?, clase = ?, puntos_de_experiencia_iniciales = ?,ataque = ?, `nivel inicial` = ?, pareja_id = ? WHERE idHeroes = ?";
 
-        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+        try (Connection connection = DriverManager.getConnection(url, "root", "123456");
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setString(9, IdHeroes);

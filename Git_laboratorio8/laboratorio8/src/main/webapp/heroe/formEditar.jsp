@@ -14,7 +14,7 @@
       <div class="row justify-content-center">
         <div class="col-md-6 col-sm-12 col-lg-4">
           <h1>Editar Heroe</h1>
-          <form method="post" action="<%=request.getContextPath()%>/ServletHeroe?action=actualizar">
+          <form method="post" action="<%=request.getContextPath()%>/HeroeServlet?action=actualizar">
             <input type="text" name="IdHeroes" value="<%=heroe_send_jsp.getHeroeId()%>">
             <div class="mb-3">
               <label for="nombre" class="form-label">Nombre del Heroe</label>
@@ -56,7 +56,7 @@
               <input type="text" class="form-control" id="puntos_exp" placeholder="puntitos" name="puntos_exp">
             </div>
             <button type="submit" class="btn btn-primary">Actualizar</button>
-            <a href="<%=request.getContextPath()%>/ServletHeroe" class="btn btn-danger">Regresar</a>
+            <a href="<%=request.getContextPath()%>/HeroeServlet" class="btn btn-danger">Regresar</a>
           </form>
         </div>
       </div>

@@ -34,7 +34,7 @@ public class HeroeServlet extends HttpServlet {
                     requestDispatcher = request.getRequestDispatcher("heroe/formEditar.jsp");
                     requestDispatcher.forward(request, response);
                 } else { //id no encontrado
-                    response.sendRedirect(request.getContextPath() + "/ServletHeroes");
+                    response.sendRedirect(request.getContextPath() + "/HeroeServlet");
                 }
                 break;
         }
@@ -68,7 +68,7 @@ public class HeroeServlet extends HttpServlet {
                 heroes.setAtaque(Integer.parseInt(ataque));
                 heroes.setPareja_id(Integer.parseInt(pareja));
                 daoHeroes.guardarHeroes(heroes);
-                response.sendRedirect(request.getContextPath() + "/ServletHeroe");
+                response.sendRedirect(request.getContextPath() + "/HeroeServlet");
                 break;
             case "actualizar":
                 String IdHeroes = request.getParameter("IdHeroes");
@@ -91,7 +91,7 @@ public class HeroeServlet extends HttpServlet {
 //                }
 
                 daoHeroes.actualizarHeroes(IdHeroes,nombre1,edad1,genero1,nivel1,clase1,ataque1,pareja1,puntos_exp1);
-                response.sendRedirect(request.getContextPath() + "/ServletHeroe");
+                response.sendRedirect(request.getContextPath() + "/HeroeServlet");
                 break;
         }
     }

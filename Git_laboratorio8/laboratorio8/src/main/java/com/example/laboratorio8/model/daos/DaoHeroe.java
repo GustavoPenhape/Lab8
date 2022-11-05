@@ -37,4 +37,94 @@ public class DaoHeroe {
         }
         return lista;
     }
+
+    public Heroe buscarPorId(String idHeroe) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        String url = "jdbc:mysql://localhost:3306/mydb";
+        String sql = "SELECT * FROM mydb.heroes WHERE idheroes = ?";
+        Heroe heroes = null;
+        try (Connection conn = DriverManager.getConnection(url, "root", "123456");
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, idHeroe);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    heroes = new Heroe();
+
+                    heroes.setHeroeId(rs.getInt(1));
+                    heroes.setNombre(rs.getString(2));
+                    heroes.setEdad(rs.getInt(3));
+                    heroes.setGenero(rs.getString(4));
+                    heroes.setClase(rs.getString(5));
+                    heroes.setPuntos_experiencia(rs.getInt(6));
+                    heroes.setAtaque(rs.getInt(7));
+                    heroes.setNivel_inicial(rs.getInt(8));
+                    heroes.setPareja_id(rs.getInt(9));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException();
+        }
+
+        return heroes;
+    }
+    public void guardarHeroes(Heroe heroes){
+
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        String url = "jdbc:mysql://localhost:3306/mydb";
+        String sql = "INSERT INTO mydb.heroes (nombre ,edad, genero, clase, puntos_de_experiencia_iniciales,ataque, `nivel inicial`, pareja_id) VALUES (?,?,?,?,?,?,?,?)" ;
+
+        try(Connection connection = DriverManager.getConnection(url,"root","123456");
+            PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setString(1,heroes.getNombre());
+            pstmt.setString(2,Integer.toString(heroes.getEdad()));
+            pstmt.setString(3,heroes.getGenero());
+            pstmt.setString(4,heroes.getClase());
+            pstmt.setString(5,Integer.toString(heroes.getPuntos_experiencia()));
+            pstmt.setString(7,Integer.toString(heroes.getNivel_inicial()));
+            pstmt.setString(8,Integer.toString(heroes.getPareja_id()));
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void actualizarHeroes(String IdHeroes, String nombre1,String edad1,String genero1,String nivel1,String clase1,String ataque1,String pareja1,String puntos_exp1) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        String url = "jdbc:mysql://localhost:3306/hr";
+        String sql = "UPDATE mydb.heroes SET nombre = ?, edad = ?, genero = ?, clase = ?, puntos_de_experiencia_iniciales = ?,ataque = ?, `nivel inicial` = ?, pareja_id = ? WHERE idHeroes = ?";
+
+        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setString(9, IdHeroes);
+            pstmt.setString(1, nombre1);
+            pstmt.setString(2, edad1);
+            pstmt.setString(3, genero1);
+            pstmt.setString(4, clase1);
+            pstmt.setString(5, puntos_exp1);
+            pstmt.setString(6, ataque1);
+            pstmt.setString(7, nivel1);
+            pstmt.setString(8, pareja1);
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

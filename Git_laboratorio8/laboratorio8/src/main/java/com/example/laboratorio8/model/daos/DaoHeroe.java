@@ -16,7 +16,7 @@ public class DaoHeroe {
         String url = "jdbc:mysql://localhost:3306/mydb";
         ArrayList<Heroe> lista = new ArrayList<>();
         String sql = "select * from heroes";
-        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+        try (Connection connection = DriverManager.getConnection(url, "root", "123456");
              Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(sql);) {
 

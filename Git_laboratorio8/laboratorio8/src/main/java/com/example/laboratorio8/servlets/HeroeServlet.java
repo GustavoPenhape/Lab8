@@ -172,7 +172,7 @@ public class HeroeServlet extends HttpServlet {
                     } else { //id no encontrado
                         response.sendRedirect(request.getContextPath() + "/HeroeServlet");
                     }
-                } else if (ContainsNumberAndLengthIsAbovefifty(clase2)) {//  y sea mayor a 50
+                } else if (ContainsNumberAndLengthIsAbovefifty(clase2)) {
                     Heroe heroe1 = daoHeroes.buscarPorId(idheroes2);
                     if (heroe1 != null) { //abro el form para editar
                         request.setAttribute("heroeParcial", heroe1);
@@ -225,7 +225,7 @@ public class HeroeServlet extends HttpServlet {
 
     public static boolean ContainsNumberAndLengthIsAbovefifty(String strNum) {
         boolean value = true;
-        if (strNum.length() < 50) {
+        if (strNum.length() < 50 && strNum.length()>0) {
             char[] chars = strNum.toCharArray();
             StringBuilder sb = new StringBuilder();
             for (char c : chars) {

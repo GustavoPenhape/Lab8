@@ -38,6 +38,8 @@
           <th>nombre</th>
           <th>edad</th>
           <th>genero</th>
+          <th>nivel</th>
+          <th>ataque</th>
           <th></th>
           <th></th>
           <th></th>
@@ -51,6 +53,10 @@
           <td><%=heroe.getEdad()%>
           </td>
           <td><%=heroe.getGenero()%>
+          </td>
+          <td><%=heroe.getNivel_inicial()%>
+          </td>
+          <td><%=heroe.getAtaque()%>
           </td>
           <td>
             <a type="button" class="btn btn-primary"

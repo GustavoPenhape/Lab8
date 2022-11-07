@@ -15,7 +15,7 @@
         <div class="col-md-6 col-sm-12 col-lg-4">
           <h1>Editar Heroe</h1>
           <form method="post" action="<%=request.getContextPath()%>/HeroeServlet?action=actualizar">
-            <input type="text" name="IdHeroes" value="<%=heroe_send_jsp.getHeroeId()%>">
+            <input type="hidden" name="IdHeroes" value="<%=heroe_send_jsp.getHeroeId()%>">
             <div class="mb-3">
               <label for="nombre" class="form-label">Nombre del Heroe</label>
               <input type="text" class="form-control" id="nombre" placeholder="Nombre del Heroe"

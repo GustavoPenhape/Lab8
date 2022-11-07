@@ -1,6 +1,7 @@
 package com.example.laboratorio8.model.daos;
 
 import com.example.laboratorio8.model.beans.Heroe;
+import com.mysql.cj.jdbc.exceptions.MysqlDataTruncation;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -24,7 +25,17 @@ public class DaoHeroe {
                 heroe.setHeroeId(rs.getInt(1));
                 heroe.setNombre(rs.getString(2));
                 heroe.setEdad(rs.getInt(3));
-                heroe.setGenero(rs.getString(4));
+                String gender = rs.getString(4);
+                if (gender.equalsIgnoreCase("F")){
+                    gender = "Femenino";
+                }else if(gender.equalsIgnoreCase("M")){
+                    gender = "Masculino";
+                }else if(gender.equalsIgnoreCase("O")){
+                    gender = "Otro";
+                }else {
+                    gender = "-";
+                }
+                heroe.setGenero(gender);
                 heroe.setClase(rs.getString(5));
                 heroe.setPuntos_experiencia(rs.getInt(6));
                 heroe.setAtaque(rs.getInt(7));
@@ -106,7 +117,7 @@ public class DaoHeroe {
             throw new RuntimeException(e);
         }
 
-        String url = "jdbc:mysql://localhost:3306/hr";
+        String url = "jdbc:mysql://localhost:3306/mydb";
         String sql = "UPDATE mydb.heroes SET nombre = ?, edad = ?, genero = ?, clase = ?, puntos_de_experiencia_iniciales = ?,ataque = ?, `nivel inicial` = ?, pareja_id = ? WHERE idHeroes = ?";
 
         try (Connection connection = DriverManager.getConnection(url, "root", "123456");
@@ -158,7 +169,7 @@ public class DaoHeroe {
         }
 
         String url = "jdbc:mysql://localhost:3306/mydb";
-        String sql = "UPDATE mydb.heroe SET  nombre = ?, edad = ?, genero = ?, clase = ?  WHERE idheroes = ?";
+        String sql = "UPDATE mydb.heroes SET  nombre = ?, edad = ?, genero = ?, clase = ?  WHERE idheroes = ?";
 
         try (Connection connection = DriverManager.getConnection(url, "root", "123456");
              PreparedStatement pstmt = connection.prepareStatement(sql)) {

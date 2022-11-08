@@ -50,7 +50,7 @@ public class DaoEnemigo {
         return lista;
     }
 
-    public Enemigo buscarPorId(String idEnemigo) {
+    public Enemigo buscarPorId(int idEnemigo) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -62,7 +62,7 @@ public class DaoEnemigo {
         try (Connection conn = DriverManager.getConnection(url, "root", "root");
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, idEnemigo);
+            pstmt.setInt(1, idEnemigo);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     enemigo = new Enemigo();
@@ -111,7 +111,7 @@ public class DaoEnemigo {
         }
     }
 
-    public Enemigo submenu(String idEnemigo) {
+    public Enemigo submenu(int idEnemigo) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -134,7 +134,7 @@ public class DaoEnemigo {
         try (Connection conn = DriverManager.getConnection(url, "root", "root");
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, idEnemigo);
+            pstmt.setInt(1, idEnemigo);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     enemigo = new Enemigo();
@@ -152,7 +152,7 @@ public class DaoEnemigo {
         return enemigo;
     }
 
-    public void borrar(String idEnemigo) {
+    public void borrar(int idEnemigo) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -165,7 +165,7 @@ public class DaoEnemigo {
         try (Connection connection = DriverManager.getConnection(url, "root", "root");
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
-            pstmt.setString(1, idEnemigo);
+            pstmt.setInt(1, idEnemigo);
             pstmt.executeUpdate();
 
         } catch (SQLException e) {

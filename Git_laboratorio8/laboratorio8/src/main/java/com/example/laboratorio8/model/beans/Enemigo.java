@@ -6,9 +6,9 @@ public class Enemigo {
     private int ataque;
     private int experienciaEntregada;
     private int probabilidadTirarObjeto;
-    private String objeto_entregado;
+    private String objetoEntregado;
     private String genero;
-    private String clase;
+    private int clase;
 
     public int getEnemigoId() {
         return EnemigoId;
@@ -50,12 +50,12 @@ public class Enemigo {
         this.probabilidadTirarObjeto = probabilidadTirarObjeto;
     }
 
-    public String getObjeto_entregado() {
-        return objeto_entregado;
+    public String getObjetoEntregado() {
+        return objetoEntregado;
     }
 
-    public void setObjeto_entregado(String objeto_entregado) {
-        this.objeto_entregado = objeto_entregado;
+    public void setObjetoEntregado(String objetoEntregado) {
+        this.objetoEntregado = objetoEntregado;
     }
 
     public String getGenero() {
@@ -66,11 +66,11 @@ public class Enemigo {
         this.genero = genero;
     }
 
-    public String getClase() {
+    public int getClase() {
         return clase;
     }
 
-    public void setClase(String clase) {
+    public void setClase(int clase) {
         this.clase = clase;
     }
 

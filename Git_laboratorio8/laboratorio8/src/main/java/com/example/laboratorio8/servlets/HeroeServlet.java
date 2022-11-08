@@ -42,18 +42,6 @@ public class HeroeServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/HeroeServlet");
 
                 break;
-            case "editar":
-                heroeId = request.getParameter("id");
-                heroe = daoHeroe.buscarPorId(heroeId);
-
-                if (heroe != null) { //abro el form para editar
-                    request.setAttribute("heroe_send_jsp", heroe);
-                    requestDispatcher = request.getRequestDispatcher("heroe/formEditar.jsp");
-                    requestDispatcher.forward(request, response);
-                } else { //id no encontrado
-                    response.sendRedirect(request.getContextPath() + "/HeroeServlet");
-                }
-                break;
 
             case "editarParcial":
                 //se le asigna un idHero a heroeID
@@ -96,6 +84,35 @@ public class HeroeServlet extends HttpServlet {
                 String pareja = request.getParameter("pareja");
                 String puntos_exp = request.getParameter("puntos_exp");
 
+                if (nombre.length() > 11) {
+                    request.setAttribute("errorCrear1", "El texto no puede tener mas de 10 caracteres");
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("heroe/formCrear.jsp");
+                    requestDispatcher.forward(request, response);
+
+                } else if (Integer.parseInt(edad) < 8 || Integer.parseInt(edad) > 999) {
+                    request.setAttribute("error2", "La edad no está en el rango [8;999]");
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("heroe/formCrear.jsp");
+                    requestDispatcher.forward(request, response);
+                } else if (!((genero.equalsIgnoreCase("M")) || (genero.equalsIgnoreCase("F")) ||
+                        (genero.equalsIgnoreCase("O")) || (genero.equalsIgnoreCase("-")))) {
+                    request.setAttribute("error3", "Debe digitar: M, F u O .");
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("heroe/formCrear.jsp");
+                    requestDispatcher.forward(request, response);
+                } else if (ContainsNumberAndLengthIsAbovefifty(clase)) {
+                    request.setAttribute("error4", "LA CLASE NO DEBE CONTENER CARACTERES NUMÉRICOS" +
+                            " O SOBREPASA LOS 50 CARACTERES.");
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("heroe/formCrear.jsp");
+                    requestDispatcher.forward(request, response);
+                } else if (Integer.parseInt(nivel) < 1 || Integer.parseInt(nivel) > 100) {//  y sea mayor a 50
+                    request.setAttribute("error5", "EL NIVEL NO ESTÁ EN EL RANGO [1;100]");
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("heroe/formCrear.jsp");
+                    requestDispatcher.forward(request, response);
+                } else if (Integer.parseInt(ataque) < 1) {
+                    request.setAttribute("error6", "EL ATAQUE DEBE SER MAYOR A 0");
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("heroe/formCrear.jsp");
+                    requestDispatcher.forward(request, response);
+                }
+
                 Heroe heroes = new Heroe();
                 heroes.setNombre(nombre);
                 heroes.setEdad(Integer.parseInt(edad));
@@ -107,7 +124,9 @@ public class HeroeServlet extends HttpServlet {
                 heroes.setPareja_id(Integer.parseInt(pareja));
                 daoHeroes.guardarHeroes(heroes);
                 response.sendRedirect(request.getContextPath() + "/HeroeServlet");
+
                 break;
+
             case "actualizar":
                 String IdHeroes = request.getParameter("IdHeroes");
                 String nombre1 = request.getParameter("nombre");
@@ -140,6 +159,7 @@ public class HeroeServlet extends HttpServlet {
                 String clase2 = request.getParameter("clase");
                 String nivel2 = request.getParameter("nivel_inicial");
                 String ataque2 = request.getParameter("ataque");
+                String pareja2 = request.getParameter("pareja");
 
                 if (nombre2.length() > 11) {
                     Heroe heroe1 = daoHeroes.buscarPorId(idheroes2);
@@ -193,7 +213,7 @@ public class HeroeServlet extends HttpServlet {
                     } else { //id no encontrado
                         response.sendRedirect(request.getContextPath() + "/HeroeServlet");
                     }
-                }else if (Integer.parseInt(ataque2) < 1 ) {
+                } else if (Integer.parseInt(ataque2) < 1) {
                     Heroe heroe1 = daoHeroes.buscarPorId(idheroes2);
                     if (heroe1 != null) { //abro el form para editar
                         request.setAttribute("heroeParcial", heroe1);
@@ -203,9 +223,34 @@ public class HeroeServlet extends HttpServlet {
                     } else { //id no encontrado
                         response.sendRedirect(request.getContextPath() + "/HeroeServlet");
                     }
+                } else if (pareja2.equalsIgnoreCase("0")) {
+                    try {
+                        daoHeroes.actualizarParcial(idheroes2, nombre2, edad2, genero2, clase2, nivel2, ataque2, pareja2);
+                        response.sendRedirect(request.getContextPath() + "/HeroeServlet");
+                    } catch (SQLException e) {
+                        Heroe heroe1 = daoHeroes.buscarPorId(idheroes2);
+                        if (heroe1 != null) { //abro el form para editar
+                            request.setAttribute("heroeParcial", heroe1);
+                            request.setAttribute("error", "Ocurrio un error en actualizar heroes");
+                            RequestDispatcher requestDispatcher = request.getRequestDispatcher("heroe/formEditarParcial.jsp");
+                            requestDispatcher.forward(request, response);
+                        } else { //id no encontrado
+                            response.sendRedirect(request.getContextPath() + "/HeroeServlet");
+                        }
+                    }
+                } else if (!(isNumeric(pareja2)) || (daoHeroes.buscarPorId(pareja2).getPareja_id()) != 0 || pareja2.equalsIgnoreCase(idheroes2)) {
+                    Heroe heroe1 = daoHeroes.buscarPorId(idheroes2);
+                    if (heroe1 != null) { //abro el form para editar
+                        request.setAttribute("heroeParcial", heroe1);
+                        request.setAttribute("error7", "o EL ID no existe.");
+                        RequestDispatcher requestDispatcher = request.getRequestDispatcher("heroe/formEditarParcial.jsp");
+                        requestDispatcher.forward(request, response);
+                    } else { //id no encontrado
+                        response.sendRedirect(request.getContextPath() + "/HeroeServlet");
+                    }
                 } else {
                     try {
-                        daoHeroes.actualizarParcial(idheroes2, nombre2, edad2, genero2, clase2);
+                        daoHeroes.actualizarParcial(idheroes2, nombre2, edad2, genero2, clase2, nivel2, ataque2, pareja2);
                         response.sendRedirect(request.getContextPath() + "/HeroeServlet");
                     } catch (SQLException e) {
                         Heroe heroe1 = daoHeroes.buscarPorId(idheroes2);
@@ -225,7 +270,7 @@ public class HeroeServlet extends HttpServlet {
 
     public static boolean ContainsNumberAndLengthIsAbovefifty(String strNum) {
         boolean value = true;
-        if (strNum.length() < 50 && strNum.length()>0) {
+        if (strNum.length() < 50 && strNum.length() > 0) {
             char[] chars = strNum.toCharArray();
             StringBuilder sb = new StringBuilder();
             for (char c : chars) {
@@ -240,6 +285,15 @@ public class HeroeServlet extends HttpServlet {
             }
         } else {
             return value;
+        }
+    }
+
+    private static boolean isNumeric(String strNum) {
+        try {
+            Integer.parseInt(strNum);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
         }
     }
 }

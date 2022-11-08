@@ -10,6 +10,15 @@ public class Heroe {
     private int ataque;
     private int nivel_inicial;
     private int pareja_id;
+    private double experiencia;
+
+    public double getExperiencia() {
+        return experiencia;
+    }
+
+    public void setExperiencia(double experiencia) {
+        this.experiencia = experiencia;
+    }
 
     public int getHeroeId() {
         return heroeId;
@@ -83,4 +92,6 @@ public class Heroe {
         this.pareja_id = pareja_id;
     }
 }
+
+
 

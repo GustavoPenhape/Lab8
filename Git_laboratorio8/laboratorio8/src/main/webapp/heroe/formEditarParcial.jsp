@@ -6,13 +6,14 @@
 <% String error4 = (String) request.getAttribute("error4");%>
 <% String error5 = (String) request.getAttribute("error5");%>
 <% String error6 = (String) request.getAttribute("error6");%>
+<% String error7 = (String) request.getAttribute("error7");%>
 
 
 <html>
     <head>
         <head>
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>Editar trabajos</title>
+            <title>Editar Heroes</title>
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
                   integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
                   crossorigin="anonymous">
@@ -21,12 +22,12 @@
         <div class='container'>
             <div class="row justify-content-center">
                 <div class="col-md-6 col-sm-12 col-lg-4">
-                    <h1>Editar trabajo parcialmente</h1>
+                    <h1>Editar Heroes</h1>
                     <form method="post" action="<%=request.getContextPath()%>/HeroeServlet?action=actualizarParcial">
                         <input type="hidden" name="id" value="<%=heroeParcial.getHeroeId()%>">
                         <div class="mb-3">
                             <label for="nombre" class="form-label">Name</label>
-                            <input type="text" class="form-control <%=error!=null?"is-invalid":""%>" id="nombre"
+                            <input type="text" class="form-control <%=error!=null?"is-invalid":""%>" id="nombre" required
                                    placeholder="Nombre de Heroe XD" name="nombre" value="<%=heroeParcial.getNombre()%>">
                             <% if (error != null) { %>
                             <div id="validationServer03Feedback" class="invalid-feedback">
@@ -36,7 +37,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="edad" class="form-label">Edad</label>
-                            <input type="text" class="form-control <%=error2!=null?"is-invalid":""%>" id="edad"
+                            <input type="text" class="form-control <%=error2!=null?"is-invalid":""%>" id="edad" required
                                    placeholder="años" name="edad" value="<%=heroeParcial.getEdad()%>">
                             <% if (error2 != null) { %>
                             <div id="validationServer03Feedback" class="invalid-feedback">
@@ -51,14 +52,12 @@
                                    id="genero" required
                                    placeholder="genero"
                                    name="genero" value="<%=heroeParcial.getGenero()%>">
-                            <div class="invalid-feedback">
-                                Por favor digite un genero adecuado.
-                                <% if (error3 != null) { %>
-                                <div id="validationServer03Feedback">
-                                    <%=error3%>
-                                </div>
-                                <% } %>
+
+                            <% if (error3 != null) { %>
+                            <div id="validationServer03Feedback" class="invalid-feedback">
+                                <%=error3%>
                             </div>
+                            <% } %>
                         </div>
 
                         <div class="mb-3">
@@ -67,14 +66,13 @@
                                    id="clase" required
                                    placeholder="Clase Inicial"
                                    name="clase" value="<%=heroeParcial.getClase()%>">
-                            <div class="invalid-feedback">
-                                Por favor digite una CLASE .
-                                <% if (error4 != null) { %>
-                                <div id="validationServer03Feedback">
-                                    <%=error4%>
-                                </div>
-                                <% } %>
+
+                            <% if (error4 != null) { %>
+                            <div id="validationServer03Feedback">
+                                <%=error4%>
                             </div>
+                            <% } %>
+
                         </div>
 
                         <div class="mb-3">
@@ -83,22 +81,38 @@
                                    id="nivel inicial" required
                                    placeholder="Nivel Inicial"
                                    name="nivel_inicial" value="<%=heroeParcial.getNivel_inicial()%>">
-                            <div class="invalid-feedback">
-                                Por favor digite un nivel inicial adecuado.
-                                <% if (error5 != null) { %>
-                                <div id="validationServer03Feedback">
-                                    <%=error5%>
-                                </div>
-                                <% } %>
+
+                            <% if (error5 != null) { %>
+                            <div id="validationServer03Feedback" class="invalid-feedback">
+                                <%=error5%>
                             </div>
+                            <% } %>
                         </div>
+
+
                         <div class="mb-3">
                             <label for="ataque" class="form-label">Ataque</label>
-                            <input type="text" class="form-control  <%=error6!=null?"is-invalid":""%>" id="ataque"
-                                   placeholder="Ataque" name="ataque" value="<%=heroeParcial.getAtaque()%>">
+                            <input type="text" class="form-control  <%=error6!=null?"is-invalid":""%>"
+                                   id="ataque" required
+                                   placeholder="Ataque"
+                                   name="ataque" value="<%=heroeParcial.getAtaque()%>">
                             <% if (error6 != null) { %>
                             <div id="validationServer03Feedback" class="invalid-feedback">
                                 <%=error6%>
+                            </div>
+                            <% } %>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="pareja" class="form-label">Pareja</label>
+                            <input type="text" class="form-control  <%=error7!=null?"is-invalid":""%>  "
+                                   id="pareja" required
+                                   placeholder="pareja"
+                                   name="pareja" value="<%=heroeParcial.getPareja_id()%>">
+                            <% if (error7 != null) { %>
+                            <div id="validationServer03Feedback" class="invalid-feedback">
+                                El HEROE CON ID <%=heroeParcial.getPareja_id()%> NO ESTÁ SOLTERO(A).
+                                <%=error7%>
                             </div>
                             <% } %>
                         </div>

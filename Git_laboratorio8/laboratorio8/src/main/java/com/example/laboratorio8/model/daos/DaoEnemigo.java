@@ -59,7 +59,7 @@ public class DaoEnemigo {
         String url = "jdbc:mysql://localhost:3306/mydb";
         String sql = "SELECT * FROM mydb.enemigos WHERE idenemigos = ?";
         Enemigo enemigo = null;
-        try (Connection conn = DriverManager.getConnection(url, "root", "root");
+        try (Connection conn = DriverManager.getConnection(url, "root", "123456");
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, idEnemigo);
@@ -95,7 +95,7 @@ public class DaoEnemigo {
         String url = "jdbc:mysql://localhost:3306/mydb";
         String sql = "INSERT INTO mydb.heroes (nombre ,edad, genero, clase, puntos_de_experiencia_iniciales,ataque, `nivel inicial`, pareja_id) VALUES (?,?,?,?,?,?,?,?)";
 
-        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+        try (Connection connection = DriverManager.getConnection(url, "root", "123456");
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setString(1, enemigo.getNombreEnemigo());
@@ -131,7 +131,7 @@ public class DaoEnemigo {
                 "ON enemigos.clase_id = submenu_clases.clase_idclase\n" +
                 ";";
         Enemigo enemigo = null;
-        try (Connection conn = DriverManager.getConnection(url, "root", "root");
+        try (Connection conn = DriverManager.getConnection(url, "root", "123456");
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, idEnemigo);
@@ -162,7 +162,7 @@ public class DaoEnemigo {
         String url = "jdbc:mysql://localhost:3306/mydb";
         String sql = "DELETE from mydb.enemigos WHERE idEnemigos= ?";
 
-        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+        try (Connection connection = DriverManager.getConnection(url, "root", "123456");
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setInt(1, idEnemigo);

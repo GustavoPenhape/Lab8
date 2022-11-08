@@ -49,6 +49,7 @@ public class DaoEnemigo {
         }
         return lista;
     }
+
     public Enemigo buscarPorId(String idEnemigo) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -82,32 +83,34 @@ public class DaoEnemigo {
 
         return enemigo;
     }
-    public void guardarEnemigos(Enemigo enemigo){
 
-        try{
+    public void guardarEnemigos(Enemigo enemigo) {
+
+        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
 
         String url = "jdbc:mysql://localhost:3306/mydb";
-        String sql = "INSERT INTO mydb.heroes (nombre ,edad, genero, clase, puntos_de_experiencia_iniciales,ataque, `nivel inicial`, pareja_id) VALUES (?,?,?,?,?,?,?,?)" ;
+        String sql = "INSERT INTO mydb.heroes (nombre ,edad, genero, clase, puntos_de_experiencia_iniciales,ataque, `nivel inicial`, pareja_id) VALUES (?,?,?,?,?,?,?,?)";
 
-        try(Connection connection = DriverManager.getConnection(url,"root","root");
-            PreparedStatement pstmt = connection.prepareStatement(sql)) {
+        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
-            pstmt.setString(1,enemigo.getNombreEnemigo());
-            pstmt.setInt(2,enemigo.getAtaque());
-            pstmt.setInt(3,enemigo.getExperienciaEntregada());
-            pstmt.setInt(4,enemigo.getProbabilidadTirarObjeto());
-            pstmt.setString(5,enemigo.getGenero());
-            pstmt.setString(6,enemigo.getObjetoEntregado());
-            pstmt.setInt(7,enemigo.getClase());
+            pstmt.setString(1, enemigo.getNombreEnemigo());
+            pstmt.setInt(2, enemigo.getAtaque());
+            pstmt.setInt(3, enemigo.getExperienciaEntregada());
+            pstmt.setInt(4, enemigo.getProbabilidadTirarObjeto());
+            pstmt.setString(5, enemigo.getGenero());
+            pstmt.setString(6, enemigo.getObjetoEntregado());
+            pstmt.setInt(7, enemigo.getClase());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
     public Enemigo submenu(String idEnemigo) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -148,8 +151,9 @@ public class DaoEnemigo {
 
         return enemigo;
     }
-    public void borrar(String idEnemigo){
-        try{
+
+    public void borrar(String idEnemigo) {
+        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -158,11 +162,10 @@ public class DaoEnemigo {
         String url = "jdbc:mysql://localhost:3306/mydb";
         String sql = "DELETE from mydb.enemigos WHERE idEnemigos= ?";
 
-        try(Connection connection = DriverManager.getConnection(url,"root","root");
-            PreparedStatement pstmt=connection.prepareStatement(sql))
-        {
+        try (Connection connection = DriverManager.getConnection(url, "root", "root");
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
-            pstmt.setString(1,idEnemigo);
+            pstmt.setString(1, idEnemigo);
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -170,7 +173,8 @@ public class DaoEnemigo {
         }
 
     }
-    public void actualizarEnemigos(int IdEnemigo1, String nombre,int ataque, int experiencia, int probabilidad, String genero, String objeto,  int clase) {
+
+    public void actualizarEnemigos(int IdEnemigo1, String nombre, int ataque, int experiencia, int probabilidad, String genero, String objeto, int clase) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -197,7 +201,8 @@ public class DaoEnemigo {
             throw new RuntimeException(e);
         }
     }
-    public void actualizarParcial(int IdEnemigo1, String nombre,int ataque, int experiencia, int probabilidad, String genero, String objeto, int clase) throws NumberFormatException {
+
+    public void actualizarParcial(int IdEnemigo1, String nombre, int ataque, int experiencia, int probabilidad, String genero, String objeto, int clase) throws SQLException {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -219,15 +224,12 @@ public class DaoEnemigo {
             pstmt.setString(6, objeto);
             pstmt.setInt(7, clase);
             pstmt.executeUpdate();
-            pstmt.executeUpdate();
             //    pstmt.setString(1, jobTitle);
             //    pstmt.setInt(2, minSalary);
             //    pstmt.setString(3, jobId);
             //    pstmt.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+
         }
+
     }
-
-
 }

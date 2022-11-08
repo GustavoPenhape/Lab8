@@ -136,11 +136,11 @@ public class EnemigoServlet extends HttpServlet {
                 String objetoEntregado1 = request.getParameter("objetoEntregado1");
                 String clase1 = request.getParameter("clase1");
 
-                int idenemigo2= Integer.parseInt(idenemigo);
-                int ataque2= Integer.parseInt(ataque1);
-                int experienciaEntregada2= Integer.parseInt(experienciaEntregada1);
-                int probabilidadTirarObjeto2= Integer.parseInt(probabilidadTirarObjeto1);
-                int clase2= Integer.parseInt(clase1);
+                int idenemigo5= Integer.parseInt(idenemigo);
+                int ataque5= Integer.parseInt(ataque1);
+                int experienciaEntregada5= Integer.parseInt(experienciaEntregada1);
+                int probabilidadTirarObjeto5= Integer.parseInt(probabilidadTirarObjeto1);
+                int clase5= Integer.parseInt(clase1);
 
 
                 if (clase1 != "Dragon" || clase1 != "Fantasma" || clase1 != "Demonio" || clase1 != "Pez" || clase1 != "Humano" || clase1 != "Bestia" || clase1 != "Ave" || clase1 != "Otros" ) {
@@ -179,12 +179,17 @@ public class EnemigoServlet extends HttpServlet {
 
                 } else {
                     try{
-                        daoEnemigo.actualizarParcial(idenemigo2, nombre1, ataque2, experienciaEntregada2, probabilidadTirarObjeto2, genero1, objetoEntregado1, clase2);
+                        int idenemigo2= Integer.parseInt(idenemigo);
+                        int ataque2= Integer.parseInt(ataque1);
+                        int experienciaEntregada2= Integer.parseInt(experienciaEntregada1);
+                        int probabilidadTirarObjeto2= Integer.parseInt(probabilidadTirarObjeto1);
+                        int clase2= Integer.parseInt(clase1);
+                        daoEnemigo.actualizarEnemigos(idenemigo2, nombre1, ataque2, experienciaEntregada2, probabilidadTirarObjeto2, genero1, objetoEntregado1, clase2);
                         response.sendRedirect(request.getContextPath() + "/EnemigoServlet");
                     } catch (NumberFormatException e) {
-                        Enemigo enemigo1 = daoEnemigo.buscarPorId(idenemigo);
-                        if (enemigo1 != null) { //abro el form para editar
-                            request.setAttribute("enemigoParcial", enemigo1);
+                        Enemigo enemigo2 = daoEnemigo.buscarPorId(idenemigo);
+                        if (enemigo2 != null) { //abro el form para editar
+                            request.setAttribute("enemigoParcial", enemigo2);
                             request.setAttribute("error", "Ocurrio un error en actualizar enemigos");
                             RequestDispatcher requestDispatcher = request.getRequestDispatcher("enemigo/formEditarParcial.jsp");
                             requestDispatcher.forward(request, response);
@@ -192,20 +197,20 @@ public class EnemigoServlet extends HttpServlet {
                             response.sendRedirect(request.getContextPath() + "/EnemigoServlet");
                         }
                     }
-                    //try {
-                    //    daoEnemigo.actualizarParcial(idheroes2, nombre2, edad2, genero2, clase2);
-                    //    response.sendRedirect(request.getContextPath() + "/HeroeServlet");
-                    //} catch (SQLException e) {
-                    //    Heroe heroe1 = daoHeroes.buscarPorId(idenemigo);
-                    //    if (heroe1 != null) { //abro el form para editar
-                    //        request.setAttribute("heroeParcial", heroe1);
-                    //        request.setAttribute("error", "Ocurrio un error en actualizar heroes");
-                    //        RequestDispatcher requestDispatcher = request.getRequestDispatcher("heroe/formEditarParcial.jsp");
-                    //        requestDispatcher.forward(request, response);
-                    //    } else { //id no encontrado
-                    //        response.sendRedirect(request.getContextPath() + "/HeroeServlet");
-                    //    }
-                    //}
+                    try {
+                        daoEnemigo.actualizarParcial(idenemigo5, nombre1, ataque5, experienciaEntregada5, probabilidadTirarObjeto5, genero1, objetoEntregado1, clase5);
+                        response.sendRedirect(request.getContextPath() + "/EnemigoServlet");
+                    } catch (SQLException e) {
+                        Enemigo enemigo3 = daoEnemigo.buscarPorId(idenemigo);
+                        if (enemigo3 != null) { //abro el form para editar
+                            request.setAttribute("enemigoParcial", enemigo3);
+                            request.setAttribute("error", "Ocurrio un error en actualizar enemigos");
+                            RequestDispatcher requestDispatcher = request.getRequestDispatcher("enemigo/formEditarParcial.jsp");
+                            requestDispatcher.forward(request, response);
+                        } else { //id no encontrado
+                            response.sendRedirect(request.getContextPath() + "/EnemigoServlet");
+                        }
+                    }
                 }
                 break;
         }

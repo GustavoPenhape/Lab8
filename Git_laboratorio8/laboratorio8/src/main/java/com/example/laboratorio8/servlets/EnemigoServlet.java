@@ -144,7 +144,7 @@ public class EnemigoServlet extends HttpServlet {
                         Enemigo enemigo1 = daoEnemigo.buscarPorId(idenemigo);
                         if (enemigo1 != null) { //abro el form para editar
                             request.setAttribute("enemigoParcial", enemigo1);
-                            request.setAttribute("error", "Ocurrio un error en actualizar heroes");
+                            request.setAttribute("error", "Ocurrio un error en actualizar enemigos");
                             RequestDispatcher requestDispatcher = request.getRequestDispatcher("enemigo/formEditarParcial.jsp");
                             requestDispatcher.forward(request, response);
                         } else { //id no encontrado

@@ -37,6 +37,19 @@ public class EnemigoServlet extends HttpServlet {
 
                 break;
 
+            case "editar":
+                enemigoId = request.getParameter("id");
+                enemigo = daoEnemigo.buscarPorId(enemigoId);
+
+                if (enemigo != null) { //abro el form para editar
+                    request.setAttribute("enemigo_send_jsp", enemigo);
+                    requestDispatcher = request.getRequestDispatcher("enemigo/formEditar.jsp");
+                    requestDispatcher.forward(request, response);
+                } else { //id no encontrado
+                    response.sendRedirect(request.getContextPath() + "/EnemigoServlet");
+                }
+                break;
+
             case "editarParcial":
                 //se le asigna un idEnemigo a enemigoID
                 enemigoId = request.getParameter("id");
@@ -84,6 +97,34 @@ public class EnemigoServlet extends HttpServlet {
 
                 daoEnemigo.guardarEnemigos(enemigo);
                 response.sendRedirect(request.getContextPath() + "/EnemigoServlet");
+
+            case "actualizar":
+                String idenemigo3 = request.getParameter("idenemigo3");
+                String nombre3 = request.getParameter("nombre3");
+                String ataque3 = request.getParameter("ataque3");
+                String experienciaEntregada3 = request.getParameter("experienciaEntregada3");
+                String probabilidadTirarObjeto3 = request.getParameter("probabilidadTirarObjeto3");
+                String genero3 = request.getParameter("genero3");
+                String objetoEntregado3 = request.getParameter("objetoEntregado3");
+                String clase3 = request.getParameter("clase3");
+                int idenemigo4= Integer.parseInt(idenemigo3);
+                int ataque4= Integer.parseInt(ataque3);
+                int experienciaEntregada4= Integer.parseInt(experienciaEntregada3);
+                int probabilidadTirarObjeto4= Integer.parseInt(probabilidadTirarObjeto3);
+                int clase4= Integer.parseInt(clase3);
+//                try {
+//                    int minSalary1 = Integer.parseInt(minSalaryStr1);
+//                    int maxSalary1 = Integer.parseInt(maxSalaryStr1);
+//                    daoJob.actualizar(jobId1, jobTitle1, minSalary1, maxSalary1);
+//
+//                    response.sendRedirect(request.getContextPath() + "/JobServlet");
+//                } catch (NumberFormatException e) {
+//                    response.sendRedirect(request.getContextPath() + "/JobServlet?action=editar&id=" + jobId1);
+//                }
+
+                daoEnemigo.actualizarEnemigos(idenemigo4, nombre3, ataque4, experienciaEntregada4, probabilidadTirarObjeto4, genero3, objetoEntregado3, clase4);
+                response.sendRedirect(request.getContextPath() + "/EnemigoServlet");
+                break;
 
             case "actualizarParcial":
                 String idenemigo = request.getParameter("idenemigo");
